@@ -1,0 +1,74 @@
+title       = Production MD 
+; Run parameters
+integrator  = md
+dt          = 0.002
+tinit       = 0
+nsteps      = 20000000   ; 40 ns
+comm-mode   = Linear 
+nstcomm     = 10
+
+; Output parameters
+nstxout-compressed  = 1000      ; every 2 ps
+nstenergy           = 1000
+
+; Bond parameters
+constraint_algorithm    = lincs
+constraints             = h-bonds
+continuation            = yes
+
+; Single-range cutoff scheme
+cutoff-scheme   = Verlet
+nstlist         = 20 
+ns_type         = grid 
+rlist           = 1.0
+rcoulomb        = 1.0
+rvdw            = 1.0
+
+; PME electrostatics parameters
+coulombtype     = PME
+fourierspacing  = 0.12
+fourier_nx      = 0
+fourier_ny      = 0
+fourier_nz      = 0
+pme_order       = 4
+ewald_rtol      = 1e-5
+optimize_fft    = yes
+
+; Modified Berendsen temperature coupling (V-Rescale) is on in two groups
+Tcoupl      = V-Rescale
+tc_grps     = Protein   Non-Protein 
+tau_t       = 1.0       1.0
+ref_t       = 300       300
+
+; Pressure coupling is on
+Pcoupl          = Parrinello-Rahman 
+pcoupltype      = isotropic
+tau_p           = 2.0       
+compressibility = 4.5e-5
+ref_p           = 1.0
+refcoord_scaling = com
+
+; Generate velocities is off
+gen_vel     = no
+
+; Periodic boundary conditions are on in all directions
+pbc     = xyz
+
+; Long-range dispersion correction
+DispCorr    = EnerPres
+
+ramd                         = yes
+ramd-seed                    = 98XX
+
+ramd-eval-freq               = 50
+ramd-force-out-freq          = 10
+
+ramd-ngroups                 = 1
+ramd-group1-force            = 3500 ; kJ/mol/nm
+ramd-group1-r-min-dist       = 0.1       ; nm
+ramd-group1-max-dist         = 6.0       ; nm
+ramd-group1-receptor-pbcatom = 2484
+
+ramd-group1-receptor         = PULL_A
+ramd-group1-ligand           = PULL_B
+
