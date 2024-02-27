@@ -1,0 +1,36 @@
+# Remember to create empty HILLS and COLVAR files in case you are doing the first run with RESTART option.
+# <fill> = necessary an input.
+# <?> = necessary a file.
+# RESTART
+
+# activate MOLINFO
+MOLINFO STRUCTURE=../traj.pdb
+
+# define reference points
+l1: CENTER ATOMS={@mdt:{resid 223 to 280 and backbone}} MASS
+l2: CENTER ATOMS={@mdt:{resid 269 to 275 and backbone}} MASS
+l3: CENTER ATOMS={@mdt:{resid 235 to 237 and backbone}} MASS
+
+p1: CENTER ATOMS={@mdt:{resid 0 to 222 and backbone}} MASS
+p2: CENTER ATOMS={@mdt:{resid 212 to 220 and backbone}} MASS
+p3: CENTER ATOMS={@mdt:{resid 46 to 49 and backbone}} MASS
+
+# COM distance
+r: DISTANCE ATOMS=p1,l1
+
+# orientation angle and dihedrals
+theta1: ANGLE ATOMS=p1,l1,l2
+phi1: TORSION ATOMS=p2,p1,l1,l2
+psi1: TORSION ATOMS=p1,l3,l1,l2
+
+#positional angle and dihedral
+pos_theta1: ANGLE ATOMS=p2,p1,l1
+pos_phi1: TORSION ATOMS=p3,p2,p1,l1
+
+# reference angles for monitoring
+al: ANGLE ATOMS=p2,p1,p3
+ap: ANGLE ATOMS=l3,l1,l2
+
+# Print collective variable on COLVAR file every 5000 steps
+PRINT ARG=* FILE=COLVAR STRIDE=1
+
