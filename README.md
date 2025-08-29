@@ -1,6 +1,6 @@
 # Trypsin_BPTI_Prebound_RAMD_2024
 
-This repository contains protein starting structures, MD parameter files and analysis scripts for this publication: [LINK].
+This repository contains protein starting structures, MD parameter files and analysis scripts for this publication: [L. Wehrhan, B.G. Keller J. Chem. Inf. Model. 2024](https://pubs.acs.org/doi/full/10.1021/acs.jcim.4c00338).
 
 ## Files
 
